@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Dashboard Index', type: :feature do
+  before do
+    dashboard_setup
+  end
+
   scenario 'User must be logged in to see' do
     visit dashboard_index_path
 
@@ -9,10 +13,8 @@ RSpec.feature 'Dashboard Index', type: :feature do
   end
 
   scenario 'User can see dashboard when logged in' do
-    user = create(:user)
     password = 'P@ssw0rd!!'
-    user.password = password
-    user.save
+    user = create(:user, password: password)
 
     visit new_session_path
 

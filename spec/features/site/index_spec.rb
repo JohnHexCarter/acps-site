@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Index', type: :feature do
+  before do
+    dashboard_setup
+  end
+
   scenario 'User can see the index page' do
     visit '/'
 
