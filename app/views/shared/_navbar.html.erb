@@ -1,0 +1,27 @@
+<div class='container'>
+  <header class='d-flex flex-wrap justify-content-center py-3 mb-5 border-bottom'>
+    <%= link_to root_path, class: 'd-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none' do %>
+      <span class='fs-4'>ACPS</span>
+    <% end %>
+    <ul class='nav nav-pills'>
+      <li class='nav-item'>
+        <%= link_to 'Home', root_path, class: 'nav-link active' %>
+      </li>
+      <% if authenticated? %>
+        <li class='nav-item'>
+          <%= link_to 'Dashboard', '#', class: 'nav-link' %>
+        </li>
+        <li class='nav-item'>
+          Welcome, <%= current_user.email_address %>!
+        </li>
+        <li class='nav-item'>
+          <%= link_to 'Log Out', session_path, method: :delete, data: { turbo_method: :delete }, class: 'nav-link' %>
+        </li>
+      <% else %>
+        <li class='nav-item'>
+          <%= link_to 'Log In', new_session_path, class: 'nav-link' %>
+        </li>
+      <% end %>
+    </ul>
+  </header>
+</div>
