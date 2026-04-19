@@ -5,11 +5,11 @@
     <% end %>
     <ul class='nav nav-pills'>
       <li class='nav-item'>
-        <%= link_to 'Home', root_path, class: 'nav-link active' %>
+        <%= link_to 'Home', root_path, class: "nav-link #{@nav_active[:home]}" %>
       </li>
       <% if authenticated? %>
         <li class='nav-item'>
-          <%= link_to 'Dashboard', '#', class: 'nav-link' %>
+          <%= link_to 'Dashboard', dashboard_index_path, class: "nav-link #{@nav_active[:dash]}" %>
         </li>
         <li class='nav-item'>
           Welcome, <%= current_user.email_address %>!

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Index', type: :feature do
-  scenario 'User cans ee the index page' do
+  scenario 'User can see the index page' do
     visit '/'
 
     expect(page).to have_text('what hath god wrought?')
@@ -24,7 +24,7 @@ RSpec.feature 'Index', type: :feature do
 
     click_button 'Sign in'
 
-    expect(page).to have_current_path(root_path)
+    expect(page).to have_current_path(dashboard_index_path)
     expect(page).to have_text("Welcome, #{user.email_address}")
   end
 end
