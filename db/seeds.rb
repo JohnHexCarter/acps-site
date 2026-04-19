@@ -7,3 +7,18 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+dash_objects = [
+  {
+    name: 'Profile',
+    namespace: 'profile',
+    description: 'Settings for profile management'
+  }
+]
+
+dash_objects.each do |dash_obj|
+  DashObject.create(
+    name: dash_obj[:name],
+    namespace: dash_obj[:namespace],
+    description: dash_obj[:description]
+  )
+end

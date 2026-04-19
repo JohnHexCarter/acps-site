@@ -1,0 +1,5 @@
+<ul>
+  <% @dash_objects.each do |dash_obj| %>
+    <li><%= link_to dash_obj.name, "/dashboard/#{dash_obj.namespace}" %></li>
+  <% end %>
+</ul>

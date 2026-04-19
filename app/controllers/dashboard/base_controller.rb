@@ -16,7 +16,8 @@ module Dashboard
     end
 
     def populate_dash_objects
-      @dash_objects = []
+      profile = DashObject.find_by(namespace: 'profile')
+      @dash_objects = [ profile ]
     end
   end
 end
