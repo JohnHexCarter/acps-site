@@ -1,3 +1,27 @@
-<p>
+<div>
   profile settings for days, yo
-</p>
+</div>
+<div>
+  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
+    Delete Account
+  </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="destroyModal" tabindex="-1" aria-labelledby="destroyModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="destroyModalLabel">Account Deletion</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete your account? This cannot be undone.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <%= button_to "Yes", dashboard_profile_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+</div>

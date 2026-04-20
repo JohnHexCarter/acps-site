@@ -16,4 +16,25 @@ RSpec.describe User, type: :model do
       expect(new_subject).not_to be_valid
     end
   end
+
+  describe 'complete_destruction' do
+    it 'destroys the user' do
+      expect(subject).to be_valid
+      expect(User.count).to eq(1)
+
+      subject.complete_destruction
+
+      expect(User.count).to eq(0)
+    end
+
+    it 'destroys all sessions connected to the user' do
+      session = Session.create(user: subject)
+
+      expect(Session.count).to eq(1)
+
+      subject.complete_destruction
+
+      expect(Session.count).to eq(0)
+    end
+  end
 end

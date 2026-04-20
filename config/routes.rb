@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get 'dashboard' => 'dashboard/base#index', as: :dashboard_index
-  get 'dashboard/profile' => 'dashboard/profile#index', as: :dashboard_profile_index
+  get 'dashboard/profile' => 'dashboard/profile#index', as: :dashboard_profile
+  delete 'dashboard/profile' => 'dashboard/profile#destroy'
 
   # Defines the root path route ("/")
   root "site#index"
