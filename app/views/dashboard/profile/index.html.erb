@@ -2,6 +2,20 @@
   profile settings for days, yo
 </div>
 <div>
+  <%= form_with url: :update_email, method: :put do |form| %>
+    <span>
+      <strong>Current Email:</strong> <%= current_user.email_address %>
+    </span>
+    <span>
+      <%= form.label :email_address, "Email Address" %>
+      <%= form.text_field :email_address %>
+    </span>
+    <span>
+      <%= form.submit "Set New Email" %>
+    </span>
+  <% end %>
+</div>
+<div>
   <%= form_with url: :update_password, method: :put do |form| %>
     <span>
       <%= form.label :current_password, "Current Password" %>

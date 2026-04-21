@@ -5,6 +5,21 @@ module Dashboard
     def index
     end
 
+    def update_email
+      # validate email on server side
+      current_user.email_address = params[:email_address]
+
+      if current_user.valid? && current_user.email_address != params[:email_address]
+        current_user.save!
+
+        flash[:notice] = 'Successfully changed email'
+      else
+        flash[:alert] = 'Something went wrong. Please try again.'
+      end
+
+      redirect_to dashboard_profile_path
+    end
+
     def update_password
       potential_user =
         User.authenticate_by(
