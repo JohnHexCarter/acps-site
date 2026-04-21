@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Dashboard Profile Index', type: :feature do
   let(:password) { 'P@ssw0rd!!' }
-  let(:user) { create(:user, email_address: 'test@example.com', password: password) }
+  let!(:user) { create(:user, email_address: 'test@example.com', password: password) }
 
   before do
     dashboard_setup
@@ -19,6 +19,38 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
     visit dashboard_index_path
 
     expect(page).to have_css('div#dashboard-sidebar')
+  end
+
+  describe 'Email Management' do
+    before do
+      visit dashboard_profile_path
+    end
+
+    scenario 'User successfully changes their email' do
+      fill_in 'email_address', with: 'anotherTest@example.com'
+      click_button 'Set New Email'
+
+      expect(page).to have_content('Successfully changed email')
+      expect(page).not_to have_content('Something went wrong. Please try again.')
+    end
+
+    scenario 'User accidentally tries to change to same email' do
+      fill_in 'email_address', with: user.email_address
+      click_button 'Set New Email'
+
+      expect(page).not_to have_content('Successfully changed email')
+      expect(page).to have_content('Something went wrong. Please try again.')
+    end
+
+    scenario 'User tries to save an invalid email' do
+      allow(user).to receive(:valid?).and_return(false)
+
+      fill_in 'email_address', with: 'not-a-valid-email'
+      click_button 'Set New Email'
+
+      expect(page).not_to have_content('Successfully changed email')
+      expect(page).to have_content('Something went wrong. Please try again.')
+    end
   end
 
   describe 'Password Management' do
