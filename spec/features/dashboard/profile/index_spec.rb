@@ -22,7 +22,7 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
   end
 
   describe 'Password Management' do
-    let(:new_password) { 'ALegitPassword'}
+    let(:new_password) { 'ALegitPassword' }
 
     before do
       visit dashboard_profile_path

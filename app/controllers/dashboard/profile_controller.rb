@@ -13,7 +13,6 @@ module Dashboard
             password: params[:current_password]
           }
         )
-        
       if potential_user == current_user &&
          params[:new_password] == params[:confirm_password] &&
          params[:current_password] != params[:new_password]
