@@ -21,37 +21,91 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
     expect(page).to have_css('div#dashboard-sidebar')
   end
 
-  scenario 'User wants to delete their account' do
-    visit dashboard_profile_path
+  describe 'Password Management' do
+    let(:new_password) { 'ALegitPassword'}
 
-    email_address = user.email_address
+    before do
+      visit dashboard_profile_path
+    end
 
-    click_button 'Delete Account'
+    scenario 'User successfully changes their password' do
+      fill_in 'current_password', with: password
+      fill_in 'new_password', with: new_password
+      fill_in 'confirm_password', with: new_password
 
-    click_button 'Yes'
+      click_button 'Set New Password'
 
-    expect(page).to have_current_path(root_path)
+      expect(page).to have_content('Successfully changed password')
+      expect(page).not_to have_content('Something went wrong. Please try again.')
+    end
 
-    click_link 'Log In'
+    scenario 'User accidentally puts in same password' do
+      fill_in 'current_password', with: password
+      fill_in 'new_password', with: password
+      fill_in 'confirm_password', with: password
 
-    fill_in 'email_address', with: email_address
-    fill_in 'password', with: password
+      click_button 'Set New Password'
 
-    click_button 'Sign in'
+      expect(page).not_to have_content('Successfully changed password')
+      expect(page).to have_content('Something went wrong. Please try again.')
+    end
 
-    expect(page).to have_current_path(new_session_path)
-    expect(page).to have_text('Try another email address or password.')
-    expect(User.count).to eq(0)
+    scenario 'User puts in wrong password for current password' do
+      fill_in 'current_password', with: 'Not the password'
+      fill_in 'new_password', with: new_password
+      fill_in 'confirm_password', with: new_password
+
+      click_button 'Set New Password'
+
+      expect(page).not_to have_content('Successfully changed password')
+      expect(page).to have_content('Something went wrong. Please try again.')
+    end
+
+    scenario 'User doesn\'t repeat new password for confirm password' do
+      fill_in 'current_password', with: password
+      fill_in 'new_password', with: new_password
+      fill_in 'confirm_password', with: "#{new_password}!!"
+
+      click_button 'Set New Password'
+
+      expect(page).not_to have_content('Successfully changed password')
+      expect(page).to have_content('Something went wrong. Please try again.')
+    end
   end
 
-  scenario 'User changes mind while deleting their account' do
-    visit dashboard_profile_path
+  describe 'Account Deletion' do
+    before do
+      visit dashboard_profile_path
+    end
 
-    click_button 'Delete Account'
+    scenario 'User wants to delete their account' do
+      email_address = user.email_address
 
-    expect(page).to have_text('Are you sure you want to delete your account? This cannot be undone.')
+      click_button 'Delete Account'
 
-    click_button 'No'
-    expect(User.count).to eq(1)
+      click_button 'Yes'
+
+      expect(page).to have_current_path(root_path)
+
+      click_link 'Log In'
+
+      fill_in 'email_address', with: email_address
+      fill_in 'password', with: password
+
+      click_button 'Sign in'
+
+      expect(page).to have_current_path(new_session_path)
+      expect(page).to have_content('Try another email address or password.')
+      expect(User.count).to eq(0)
+    end
+
+    scenario 'User changes mind while deleting their account' do
+      click_button 'Delete Account'
+
+      expect(page).to have_text('Are you sure you want to delete your account? This cannot be undone.')
+
+      click_button 'No'
+      expect(User.count).to eq(1)
+    end
   end
 end

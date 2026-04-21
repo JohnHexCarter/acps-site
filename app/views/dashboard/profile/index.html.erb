@@ -2,6 +2,25 @@
   profile settings for days, yo
 </div>
 <div>
+  <%= form_with url: :update_password, method: :put do |form| %>
+    <span>
+      <%= form.label :current_password, "Current Password" %>
+      <%= form.password_field :current_password %>
+    </span>
+    <span>
+      <%= form.label :new_password, "New Password" %>
+      <%= form.password_field :new_password %>
+    </span>
+    <span>
+      <%= form.label :confirm_password, "Confirm New Password" %>
+      <%= form.password_field :confirm_password %>
+    </span>
+    <span>
+      <%= form.submit "Set New Password" %>
+    </span>
+  <% end %>
+</div>
+<div>
   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
     Delete Account
   </button>

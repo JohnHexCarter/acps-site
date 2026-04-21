@@ -10,9 +10,10 @@ Rails.application.routes.draw do
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  get 'dashboard' => 'dashboard/base#index', as: :dashboard_index
-  get 'dashboard/profile' => 'dashboard/profile#index', as: :dashboard_profile
-  delete 'dashboard/profile' => 'dashboard/profile#destroy'
+  get    'dashboard'                  => 'dashboard/base#index',              as: :dashboard_index
+  get    'dashboard/profile'          => 'dashboard/profile#index',           as: :dashboard_profile
+  delete 'dashboard/profile'          => 'dashboard/profile#destroy'
+  put    'dashboard/profile/password' => 'dashboard/profile#update_password', as: :update_password
 
   # Defines the root path route ("/")
   root "site#index"

@@ -24,12 +24,15 @@
   </head>
 
   <body>
-    <%= render 'shared/navbar' %>
     <div class='container'>
-      <div class='d-flex flex-column flex-shrink-0 p-3 bg-light' id='dashboard-sidebar' style='width:280px; height:100%;'>
-        <%= render 'shared/dashboard/sidebar' %>
+      <%= render 'shared/navbar' %>
+      <%= render 'shared/flash' %> 
+      <div class='container'>
+        <div class='d-flex flex-column flex-shrink-0 p-3 bg-light' id='dashboard-sidebar' style='width:280px; height:100%;'>
+          <%= render 'shared/dashboard/sidebar' %>
+        </div>
+        <%= yield %>
       </div>
-      <%= yield %>
     </div>
   </body>
 </html>
