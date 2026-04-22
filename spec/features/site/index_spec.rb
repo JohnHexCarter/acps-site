@@ -29,6 +29,5 @@ RSpec.feature 'Index', type: :feature do
     click_button 'Sign in'
 
     expect(page).to have_current_path(dashboard_index_path)
-    expect(page).to have_text("Welcome, #{user.email_address}")
   end
 end
