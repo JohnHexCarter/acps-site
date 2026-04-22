@@ -12,7 +12,7 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
   scenario 'User can see profile page' do
     visit dashboard_profile_path
 
-    expect(page).to have_text('profile settings for days, yo')
+    expect(page).to have_text('User Profile')
   end
 
   scenario 'User can see the profile link in the sidebar' do

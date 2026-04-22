@@ -11,12 +11,14 @@ dash_objects = [
   {
     name: 'Pages',
     namespace: 'pages',
-    description: 'Managing front facing content'
+    description: 'Managing front facing content',
+    icon_str: 'bookmark-fill'
   },
   {
     name: 'Profile',
     namespace: 'profile',
-    description: 'Settings for profile management'
+    description: 'Settings for profile management',
+    icon_str: 'gear-fill'
   }
 ]
 
