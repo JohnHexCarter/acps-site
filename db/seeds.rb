@@ -9,6 +9,11 @@
 #   end
 dash_objects = [
   {
+    name: 'Pages',
+    namespace: 'pages',
+    description: 'Managing front facing content'
+  },
+  {
     name: 'Profile',
     namespace: 'profile',
     description: 'Settings for profile management'
