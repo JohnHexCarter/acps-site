@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Acps Site" %></title>
+    <title><%= content_for(:title) || "ACPS" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Acps Site">
@@ -24,15 +24,16 @@
   </head>
 
   <body>
-    <div class='container'>
-      <%= render 'shared/navbar' %>
-      <%= render 'shared/flash' %> 
-      <div class='container'>
-        <div class='d-flex flex-column flex-shrink-0 p-3 bg-light' id='dashboard-sidebar' style='width:280px; height:100%;'>
+    <main>
+      <div class='container-fluid'>
+        <div class='row flex-nowrap'>
           <%= render 'shared/dashboard/sidebar' %>
+          <div class='col py-3'>
+            <%= render 'shared/flash' %> 
+            <%= yield %>
+          </div>
         </div>
-        <%= yield %>
       </div>
-    </div>
+    </main>
   </body>
 </html>

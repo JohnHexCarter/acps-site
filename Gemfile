@@ -13,6 +13,7 @@ gem "jbuilder"
 
 gem 'dartsass-rails'
 gem 'bootstrap', '~> 5.3.3'
+gem 'bootstrap-icons-helper'
 
 gem "bcrypt", "~> 3.1.7"
 

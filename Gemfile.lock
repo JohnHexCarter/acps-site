@@ -89,6 +89,11 @@ GEM
       msgpack (~> 1.2)
     bootstrap (5.3.8)
       popper_js (>= 2.11.8, < 3)
+    bootstrap-icons (1.0.15)
+      nokogiri (~> 1)
+    bootstrap-icons-helper (2.0.3)
+      bootstrap-icons (~> 1)
+      rails (>= 7.1)
     brakeman (8.0.4)
       racc
     builder (3.3.0)
@@ -436,6 +441,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap
   bootstrap (~> 5.3.3)
+  bootstrap-icons-helper
   brakeman
   bundler-audit
   capybara

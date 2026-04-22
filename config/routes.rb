@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   delete 'dashboard/profile'          => 'dashboard/profile#destroy'
   put    'dashboard/profile/password' => 'dashboard/profile#update_password', as: :update_password
   put    'dashboard/profile/email'    => 'dashboard/profile#update_email',    as: :update_email
+  get    'dashboard/pages'            => 'dashboard/pages#index',             as: :dashboard_page
 
   # Defines the root path route ("/")
   root "site#index"
