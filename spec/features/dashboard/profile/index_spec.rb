@@ -7,6 +7,8 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
   before do
     dashboard_setup
     login_with(user.email_address, password)
+
+    allow_any_instance_of(ApplicationController).to receive(:set_dummy).and_return(false)
   end
 
   scenario 'User can see profile page' do
