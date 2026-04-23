@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_22_222531) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_23_191044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -22,6 +22,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_22_222531) do
     t.string "namespace", null: false
     t.datetime "updated_at", null: false
     t.index ["namespace"], name: "index_dash_objects_on_namespace", unique: true
+  end
+
+  create_table "mailing_list_entities", force: :cascade do |t|
+    t.string "aasm_state", null: false
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pages", force: :cascade do |t|
