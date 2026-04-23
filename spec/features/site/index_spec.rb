@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.feature 'Index', type: :feature do
   before do
     dashboard_setup
+
+    allow_any_instance_of(ApplicationController).to receive(:set_dummy).and_return(false)
   end
 
   scenario 'User can see the index page' do
