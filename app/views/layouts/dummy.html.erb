@@ -24,35 +24,36 @@
   </head>
 
   <body style='background-color:#1581A9'>
+    <%= render 'shared/flash' %>
     <div class='container text-center' style='color: white; margin-top: 10%; width: 100%; background-color: #82a195; padding: 20px; border-radius: 10px; font-size: 20px;'>
-        <div style='width: 100%'>
-          <h1 style='color:#AAEFDA; font-weight: bold;'>Appalachia Cinema Preservation Society</h1>
-        </div>
-        <hr />
-        <div style='width: 100%'>
-          <h2>Coming soon!</h2>
-          <p>
-            We are building a nonprofit dedicated to revitalizing historic theaters, building new theaters,<br/>
-            and other projects around cinema in the Appalachian region.
-          </p>
-          <p>
-            If interested in learning more, please sign up for our Mailing List!
-          </p>
-          <p>
-            <%= form_with url: '#', method: :post do |form| %>
-              <div class='row'>
-                <div class='col'></div>
-                <div class='col'>
-                  <%= form.text_field :email_address, class: 'form-control', placeholder: 'you@excited.com' %>
-                </div>
-                <div class='col'>
-                  <%= form.submit 'Sign me up!', class: 'btn btn-primary', style: 'width:100%' %>
-                </div>
-                <div class='col'></div>
+      <div style='width: 100%'>
+        <h1 style='color:#AAEFDA; font-weight: bold;'>Appalachia Cinema Preservation Society</h1>
+      </div>
+      <hr />
+      <div style='width: 100%'>
+        <h2>Coming soon!</h2>
+        <p>
+          We are building a nonprofit dedicated to revitalizing historic theaters, building new theaters,<br/>
+          and other projects around cinema in the Appalachian region.
+        </p>
+        <p>
+          If interested in learning more, please sign up for our Mailing List!
+        </p>
+        <p>
+          <%= form_with url: email_signup_path, method: :post do |form| %>
+            <div class='row'>
+              <div class='col'></div>
+              <div class='col'>
+                <%= form.text_field :email_address, class: 'form-control', placeholder: 'you@excited.com' %>
               </div>
-            <% end %>
-          </p>
-        </div>
+              <div class='col'>
+                <%= form.submit 'Sign me up!', class: 'btn btn-primary', style: 'width:100%' %>
+              </div>
+              <div class='col'></div>
+            </div>
+          <% end %>
+        </p>
+      </div>
     </div>
   </body>
 </html>

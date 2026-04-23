@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   put    'dashboard/profile/email'    => 'dashboard/profile#update_email',    as: :update_email
   get    'dashboard/pages'            => 'dashboard/pages#index',             as: :dashboard_page
 
+  post   '/'                          => 'site#email_signup',                 as: :email_signup
+
   # Defines the root path route ("/")
   root "site#index"
 end
