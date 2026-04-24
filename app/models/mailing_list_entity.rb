@@ -10,6 +10,8 @@ class MailingListEntity < ApplicationRecord
   validates :email, presence: true, uniqueness: true, 'valid_email_2/email': true
   validates :aasm_state, presence: true
 
+  after_create :send_confirmation_email
+
   aasm do
     state :unconfirmed, initial: true
     state :confirmed, :archived
@@ -27,5 +29,9 @@ class MailingListEntity < ApplicationRecord
     mle = MailingListEntity.new(email: email)
 
     mle.save! if mle.valid?
+  end
+
+  def send_confirmation_email
+    MailingListMailer.with(mailing_list_entity: self).confirmation.deliver_now
   end
 end

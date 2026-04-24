@@ -24,7 +24,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_23_191044) do
     t.index ["namespace"], name: "index_dash_objects_on_namespace", unique: true
   end
 
-  create_table "mailing_list_entities", force: :cascade do |t|
+  create_table "mailing_list_entities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "aasm_state", null: false
     t.datetime "created_at", null: false
     t.string "email", null: false
@@ -42,16 +42,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_23_191044) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sessions", force: :cascade do |t|
+  create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
     t.datetime "updated_at", null: false
     t.string "user_agent"
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_sessions_on_user_id"
+    t.uuid "user_id", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address", null: false
     t.string "password_digest", null: false
