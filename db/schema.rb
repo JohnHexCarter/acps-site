@@ -13,6 +13,7 @@
 ActiveRecord::Schema[8.1].define(version: 2026_04_23_191044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pgcrypto"
 
   create_table "dash_objects", force: :cascade do |t|
     t.datetime "created_at", null: false
