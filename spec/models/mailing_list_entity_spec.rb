@@ -4,6 +4,10 @@ RSpec.describe MailingListEntity, type: :model do
   let(:valid_email) { 'valid@gmail.com' }
   let(:subject) { build(:mailing_list_entity, email: valid_email) }
 
+  before do
+    allow_any_instance_of(MailingListEntity).to receive(:send_confirmation_email).and_return(true)
+  end
+
   describe 'validations' do
     it 'must have an email' do
       subject.email = nil

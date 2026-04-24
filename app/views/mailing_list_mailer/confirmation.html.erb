@@ -1,0 +1,29 @@
+<h1>Welcome to the ACPS Mailing List!</h1>
+<hr>
+<p>
+  The Appalachia Cinema Preservation Society is dedicated to the revitalization of
+  historic movie theaters, building new community theaters, and other film-related
+  projects in the Appalachian region and we're excited over your interest.
+</p>
+<p>
+  You are receiving this email because we had a request to add
+  <strong><%= @mailing_list_entity.email %></strong> to our mailing list.
+</p>
+<p>
+  <strong>
+    <%= link_to @confirm_url do %>
+      Please click here to confirm your email address.
+    <% end %>
+  </strong>
+<p>
+  If this was done by accident or you did not intend to receive this email, you
+  may ignore this email. We take private information very seriously and if you'd
+  like to ensure that your email is removed from our list,
+  <strong><%= link_to 'please click here to remove your email.', '#' %></strong>
+</p>
+<p>
+  Thank you once again for your interest in our project.
+</p>
+<p>
+  The Appalachia Cinema Preservation Society Team
+</p>

@@ -39,6 +39,10 @@ RSpec.feature 'Index', type: :feature do
   end
 
   describe 'dummy functionality' do
+    before do
+      allow_any_instance_of(MailingListEntity).to receive(:send_confirmation_email).and_return(true)
+    end
+
     scenario 'sees dummy page' do
       visit '/'
 
