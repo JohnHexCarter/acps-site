@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   put    'confirmation/:code'         => 'mailing_list#confirmation',         as: :confirmation_mailing_list
   get    'confirm/:code'              => 'mailing_list#confirm',              as: :confirm_mailing_list
+  get    'unsubscribe/:code'          => 'mailing_list#unsubscribe',          as: :unsubscribe_mailing_list
 
   post   '/'                          => 'site#email_signup',                 as: :email_signup
 

@@ -1,13 +1,13 @@
 <div>
   <strong>
-    <%= link_to "/confirmation/#{@mailing_list_entity.id}", data: { turbo_method: :put } do %>
+    <%= link_to confirmation_mailing_list_path(code: @mailing_list_entity.id), data: { turbo_method: :put } do %>
       Please click here to confirm you'd like to join our Mailing List
     <% end %>
   </strong>
 </div>
 <div>
   <strong>
-    <%= link_to '#' do %>
+    <%= link_to unsubscribe_mailing_list_path(code: @mailing_list_entity.id) do %>
       Otherwise if you got here in error, click here to remove your email.
     <% end %>
   </strong>
