@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:subject) { create(:user) }
+  let(:subject) { build(:user) }
 
   describe 'validations' do
     it 'requires an email_address to be valid' do
@@ -11,13 +11,28 @@ RSpec.describe User, type: :model do
     end
 
     it 'requires an email_address to be unique' do
-      new_subject = build(:user, email_address: subject.email_address)
+      user = create(:user)
+      subject.email_address = user.email_address
 
-      expect(new_subject).not_to be_valid
+      expect(subject).not_to be_valid
+    end
+
+    it 'requires a valid email_address to be valid' do
+      subject.email_address = 'not an email address'
+
+      expect(subject).not_to be_valid
+    end
+
+    it 'requires an aasm_state to be valid' do
+      subject.aasm_state = nil
+
+      expect(subject).not_to be_valid
     end
   end
 
   describe 'complete_destruction' do
+    let(:subject) { create(:user) }
+
     it 'destroys the user' do
       expect(subject).to be_valid
       expect(User.count).to eq(1)

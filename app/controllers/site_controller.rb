@@ -3,13 +3,13 @@
 class SiteController < ApplicationController
   allow_unauthenticated_access
 
-  layout :check_for_dummy_page
+  layout :check_for_construction_page
 
   def index
   end
 
-  def check_for_dummy_page
-    @dummy ? 'dummy' : 'application'
+  def check_for_construction_page
+    @construction ? 'construction' : 'application'
   end
 
   def email_signup

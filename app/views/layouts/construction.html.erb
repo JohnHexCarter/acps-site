@@ -33,7 +33,7 @@
       <div style='width: 100%'>
         <h2>Coming soon!</h2>
         <p>
-          We are building a nonprofit dedicated to revitalizing historic theaters, building new theaters,<br/>
+          We are building a nonprofit dedicated to revitalizing historic theaters, building new theaters,
           and other projects around cinema in the Appalachian region.
         </p>
         <p>
@@ -42,14 +42,12 @@
         <p>
           <%= form_with url: email_signup_path, method: :post do |form| %>
             <div class='row'>
-              <div class='col'></div>
-              <div class='col'>
+              <div class='col-md'>
                 <%= form.text_field :email_address, class: 'form-control', placeholder: 'you@excited.com' %>
               </div>
-              <div class='col'>
+              <div class='col-md'>
                 <%= form.submit 'Sign me up!', class: 'btn btn-primary', style: 'width:100%' %>
               </div>
-              <div class='col'></div>
             </div>
           <% end %>
         </p>

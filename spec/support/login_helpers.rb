@@ -4,6 +4,6 @@ module LoginHelpers
     fill_in 'email_address', with: email_address
     fill_in 'password', with: password
 
-    click_button 'Sign in'
+    click_button 'Log in'
   end
 end

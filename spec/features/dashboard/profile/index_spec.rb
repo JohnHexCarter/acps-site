@@ -8,7 +8,7 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
     dashboard_setup
     login_with(user.email_address, password)
 
-    allow_any_instance_of(ApplicationController).to receive(:set_dummy).and_return(false)
+    allow_any_instance_of(ApplicationController).to receive(:set_construction).and_return(false)
   end
 
   scenario 'User can see profile page' do
@@ -126,7 +126,7 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
       fill_in 'email_address', with: email_address
       fill_in 'password', with: password
 
-      click_button 'Sign in'
+      click_button 'Log in'
 
       expect(page).to have_current_path(new_session_path)
       expect(page).to have_content('Try another email address or password.')
