@@ -1,8 +1,8 @@
-<h1>Account Log In</h1>
+<h1>Sign Up for a New Account</h1>
 <hr>
 <div class='row'>
   <div class='col-md'>
-    <%= form_with url: session_path do |form| %>
+    <%= form_with url: create_user_path do |form| %>
       <div class='mb-3'>
         <%= form.label :email_address, 'Email address', class: 'form-label' %>
         <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: 'username', value: params[:email_address], class: 'form-control' %>
@@ -11,17 +11,16 @@
         <%= form.label :password, 'Password', class: 'form-label' %>
         <%= form.password_field :password, required: true, autocomplete: 'current-password', maxlength: 72, class: 'form-control' %>
       </div>
+      <div class='mb-3'>
+        <%= form.label :confirm_password, 'Password Confirmation', class: 'form-label' %>
+        <%= form.password_field :confirm_password, required: true, maxlength: 72, class: 'form-control' %>
+      </div>
       <div class='text-end'>
-        <%= form.submit 'Log in', class: 'btn btn-primary' %>
+        <%= form.submit 'Create Account', class: 'btn btn-primary' %>
       </div>
     <% end %>
   </div>
-  <div class='col-md text-center'>
-    <div class='row' style='padding-top: 40px'>
-      <%= link_to 'Need to create an account instead?', sign_up_path %>
-    </div>
-    <div class='row' style='padding-top: 40px'>
-      <%= link_to 'Forgot password?', new_password_path %>
-    </div>
+  <div class='col-md text-center' style='padding-top: 40px'>
+    <%= link_to 'Need to sign into an existing account instead?', new_session_path %>
   </div>
 </div>

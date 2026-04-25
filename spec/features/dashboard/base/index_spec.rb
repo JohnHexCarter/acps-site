@@ -21,7 +21,7 @@ RSpec.feature 'Dashboard Index', type: :feature do
     fill_in 'email_address', with: user.email_address
     fill_in 'password', with: password
 
-    click_button 'Sign in'
+    click_button 'Log in'
 
     expect(page).to have_current_path(dashboard_index_path)
     expect(page).to have_text('Dashboard')

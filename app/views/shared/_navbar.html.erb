@@ -3,6 +3,7 @@
     <%= link_to root_path, class: 'd-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none' do %>
       <span class='fs-4'>ACPS</span>
     <% end %>
+    <% unless @construction %>
     <ul class='nav nav-pills'>
       <li class='nav-item'>
         <%= link_to 'Home', root_path, class: "nav-link #{@nav_active[:home]}" %>
@@ -23,5 +24,6 @@
         </li>
       <% end %>
     </ul>
+    <% end %>
   </header>
 </div>

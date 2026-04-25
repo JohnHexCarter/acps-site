@@ -6,10 +6,6 @@ RSpec.feature 'Index', type: :feature do
   end
 
   describe 'normal functionality' do
-    before do
-      allow_any_instance_of(ApplicationController).to receive(:set_dummy).and_return(false)
-    end
-
     scenario 'User can see the index page' do
       visit '/'
 
@@ -32,18 +28,19 @@ RSpec.feature 'Index', type: :feature do
       fill_in 'email_address', with: user.email_address
       fill_in 'password', with: password
 
-      click_button 'Sign in'
+      click_button 'Log in'
 
       expect(page).to have_current_path(dashboard_index_path)
     end
   end
 
-  describe 'dummy functionality' do
+  describe 'under construction functionality' do
     before do
+      allow_any_instance_of(ApplicationController).to receive(:under_construction?).and_return(true)
       allow_any_instance_of(MailingListEntity).to receive(:send_confirmation_email).and_return(true)
     end
 
-    scenario 'sees dummy page' do
+    scenario 'sees under construction page' do
       visit '/'
 
       expect(page).not_to have_text('what hath god wrought?')

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  allow_unauthenticated_access only: %i[ new create ]
+  allow_unauthenticated_access only: %i[ new create sign_up ]
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_path, alert: 'Try again later.' }
+
+  before_action :check_for_construction
 
   def new
   end
@@ -16,8 +18,18 @@ class SessionsController < ApplicationController
     end
   end
 
+  def sign_up
+  end
+
+  def create_user
+  end
+
   def destroy
     terminate_session
     redirect_to new_session_path, status: :see_other, notice: 'Successfully logged out.'
+  end
+
+  def check_for_construction
+    redirect_to root_path if @construction
   end
 end
