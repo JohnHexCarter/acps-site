@@ -19,7 +19,11 @@
   If this was done by accident or you did not intend to receive this email, you
   may ignore this email. We take private information very seriously and if you'd
   like to ensure that your email is removed from our list,
-  <strong><%= link_to 'please click here to remove your email.', '#' %></strong>
+  <strong>
+    <%= link_to @unsubscribe_url do %>
+      Please click here to remove your email from our system.
+    <% end %>
+  </strong>
 </p>
 <p>
   Thank you once again for your interest in our project.
