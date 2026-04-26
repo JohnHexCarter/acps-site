@@ -2,6 +2,8 @@
 
 module Dashboard
   class ProfileController < BaseController
+    allow_unauthenticated_access only: %i[ email_verification suspend suspicious_report ]
+
     def index
       @unverified = current_user.unverified?
     end
@@ -32,7 +34,8 @@ module Dashboard
       if potential_user == current_user &&
          params[:new_password] == params[:confirm_password] &&
          params[:current_password] != params[:new_password]
-        current_user.password = params[:new_password]
+        current_user.update_password(params[:new_password])
+
         flash[:notice] = 'Successfully changed password.'
       else
         flash[:alert] = 'Something went wrong. Please try again.'
@@ -65,7 +68,21 @@ module Dashboard
 
       user.verify!
 
-      redirect_to dashboard_profile_path, notice: 'Your email has been successfully verified.'
+      redirect_to root_path, notice: 'Your email has been successfully verified.'
+    end
+
+    def suspicious_report
+      @user = User.find params[:code]
+
+      @reason = params[:reason]
+    end
+
+    def suspend
+      user = User.find params[:code]
+
+      user.suspend_for_suspicious_activity(params[:reason])
+
+      redirect_to root_path, notice: 'The suspicious report has been filed. The account is temporarily inaccessible until site administrators can assess the report.'
     end
   end
 end

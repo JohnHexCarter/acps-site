@@ -1,0 +1,10 @@
+<h1>Suspicious Activity Report</h1>
+<div>
+  If you believe that there may be suspicious activity of <strong>'<%= @reason %>'</strong>
+  with the account with email <strong>'<%= @user.hidden_email %>'</strong>
+  <strong>
+    <%= link_to suspend_user_path(code: @user.id, reason: @reason) do %>
+      please click here.
+    <% end %>
+  </strong>
+</div>
