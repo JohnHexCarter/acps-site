@@ -141,6 +141,7 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
     end
 
     scenario 'User wants to delete their account' do
+      expect(User.count).to eq(1)
       email_address = user.email_address
 
       click_button 'Delete Account'
@@ -162,6 +163,7 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
     end
 
     scenario 'User changes mind while deleting their account' do
+      expect(User.count).to eq(1)
       click_button 'Delete Account'
 
       expect(page).to have_text('Are you sure you want to delete your account? This cannot be undone.')

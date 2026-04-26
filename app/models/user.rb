@@ -46,6 +46,31 @@ class User < ApplicationRecord
     end
   end
 
+  def hidden_email
+    email_array = email_address.split('@')
+
+    "#{email_array[0][0..2]}...@#{email_array[1]}"
+  end
+
+  def suspend_for_suspicious_activity(reason)
+    session = self.sessions.last
+    session.destroy if session.present?
+
+    return unless self.may_suspend?
+
+    self.suspend!
+
+    UserMailer.with(user: self, reason: reason).suspend_notification.deliver_now
+  end
+
+  def update_password(new_password)
+    password = new_password
+
+    self.save!
+
+    UserMailer.with(user: self).password_change.deliver_now
+  end
+
   def complete_destruction
     self.destroy
   end

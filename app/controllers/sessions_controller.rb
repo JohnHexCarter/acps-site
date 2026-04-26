@@ -10,7 +10,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if user = User.authenticate_by(params.permit(:email_address, :password))
+    user = User.find_by(email_address: params[:email_address])
+
+    if user.blank?
+      redirect_to new_session_path, alert: 'Try another email address or password.'
+    elsif user.suspended? || user.banned?
+      redirect_to new_session_path, alert: 'That account is currently inaccessible. Contact admin for more information.'
+    elsif user = User.authenticate_by(params.permit(:email_address, :password))
       start_new_session_for user
       redirect_to after_authentication_url, notice: 'Successfully logged in.'
     else
