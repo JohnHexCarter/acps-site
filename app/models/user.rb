@@ -63,6 +63,20 @@ class User < ApplicationRecord
     UserMailer.with(user: self, reason: reason).suspend_notification.deliver_now
   end
 
+  def attempt_to_set_new_email(new_email)
+    old_email = email_address
+    self.email_address = new_email
+
+    return false if new_email == old_email || !(self.valid?)
+
+    self.save!
+
+    UserMailer.with(email: old_email, code: id).email_change_from.deliver_now
+    UserMailer.with(email: new_email, code: id).email_change_to.deliver_now
+
+    true
+  end
+
   def update_password(new_password)
     password = new_password
 

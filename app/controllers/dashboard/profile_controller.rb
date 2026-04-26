@@ -9,12 +9,7 @@ module Dashboard
     end
 
     def update_email
-      # validate email on server side
-      current_user.email_address = params[:email_address]
-
-      if current_user.valid? && current_user.email_address != params[:email_address]
-        current_user.save!
-
+      if current_user.attempt_to_set_new_email(params[:email_address])
         flash[:notice] = 'Successfully changed email'
       else
         flash[:alert] = 'Something went wrong. Please try again.'

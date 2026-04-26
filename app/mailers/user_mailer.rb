@@ -1,6 +1,16 @@
 # frozen_string_literal: true
 
 class UserMailer < ApplicationMailer
+  def email_change_from
+    @suspend_url = suspend_url(code: params[:code], reason: 'email-change')
+    mail(to: params[:email], subject: 'ACPS: An email address change was made')
+  end
+
+  def email_change_to
+    @suspend_url = suspend_url(code: params[:code], reason: 'email-change')
+    mail(to: params[:email], subject: 'ACPS: An email address change was made')
+  end
+
   def verify
     @user = params[:user]
     @verify_url = "#{site_url}/email-verify/#{@user.id}"
@@ -9,7 +19,7 @@ class UserMailer < ApplicationMailer
 
   def password_change
     @user = params[:user]
-    @suspend_url = "#{site_url}/suspicious-report/#{@user.id}?reason='password-change'"
+    @suspend_url = suspend_url(code: @user.id, reason: 'password-change')
     mail(to: @user.email_address, subject: 'ACPS: Password change notification')
   end
 
@@ -17,5 +27,9 @@ class UserMailer < ApplicationMailer
     @user = params[:user]
     @reason = params[:reason]
     mail(to: @user.email_address, subject: 'ACPS: Your account is temporarily suspended')
+  end
+
+  def suspend_url(code:, reason:)
+    "#{site_url}/suspicious-report/#{code}?reason='#{reason}'"
   end
 end
