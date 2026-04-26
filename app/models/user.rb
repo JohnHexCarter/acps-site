@@ -3,7 +3,7 @@
 # id               uuid
 # email_address    string, null: false, unique: true
 # password_hash    password
-# aasm_state       string, null: false, default: 'unconfirmed'
+# aasm_state       string, null: false, default: 'unverified'
 # mailing_list     boolean, null: false, default: false
 
 class User < ApplicationRecord
@@ -18,19 +18,19 @@ class User < ApplicationRecord
   validates :aasm_state, presence: true
 
   aasm do
-    state :unconfirmed, initial: true
+    state :unverified, initial: true
     state :active, :suspended, :banned
 
-    event :confirm do
-      transitions from: :unconfirmed, to: :active
+    event :verify do
+      transitions from: :unverified, to: :active
     end
 
     event :suspend do
-      transitions from: %i[unconfirmed active], to: :suspended
+      transitions from: %i[unverified active], to: :suspended
     end
 
     event :ban do
-      transitions from: %i[unconfirmed active suspended], to: :banned
+      transitions from: %i[unverified active suspended], to: :banned
     end
 
     event :reactivate do
@@ -41,8 +41,8 @@ class User < ApplicationRecord
       transitions from: :banned, to: :active
     end
 
-    event :revert_to_unconfirmed do
-      transitions from: %i[suspended banned], to: :unconfirmed
+    event :revert_to_unverified do
+      transitions from: %i[suspended banned], to: :unverified
     end
   end
 

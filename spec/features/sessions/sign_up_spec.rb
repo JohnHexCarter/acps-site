@@ -76,7 +76,7 @@ RSpec.feature 'Sign Up', type: :feature do
       mle.reload
 
       expect(mle.archived?).to be(true)
-      expect(user.unconfirmed?).to be(true)
+      expect(user.unverified?).to be(true)
     end
 
     scenario 'User had an existing confirmed MailingListEntity' do

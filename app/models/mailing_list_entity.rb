@@ -32,7 +32,7 @@ class MailingListEntity < ApplicationRecord
 
     return if mle.blank?
 
-    user.confirm! if mle.confirmed?
+    user.verify! if mle.confirmed?
 
     mle.archive!
 
