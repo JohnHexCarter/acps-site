@@ -3,6 +3,7 @@
 module Dashboard
   class ProfileController < BaseController
     def index
+      @unverified = current_user.unverified?
     end
 
     def update_email
@@ -47,6 +48,24 @@ module Dashboard
 
       terminate_session
       redirect_to root_path, notice: 'Successfully deleted account.'
+    end
+
+    def send_verification
+      UserMailer.with(user: current_user).verify.deliver_now
+
+      redirect_to dashboard_profile_path, notice: 'A verification has been sent to your email address.'
+    end
+
+    def email_verification
+      user = User.find params[:code]
+
+      unless user.may_verify?
+        redirect_to root_path, alert: 'Something went wrong. Please contact a member of the ACPS site.'
+      end
+
+      user.verify!
+
+      redirect_to dashboard_profile_path, notice: 'Your email has been successfully verified.'
     end
   end
 end

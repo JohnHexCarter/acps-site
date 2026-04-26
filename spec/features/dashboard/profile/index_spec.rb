@@ -24,86 +24,114 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
   end
 
   describe 'Email Management' do
-    before do
-      visit dashboard_profile_path
+    context 'with an unverified user' do
+      before do
+        visit dashboard_profile_path
+      end
+
+      scenario 'User cannot change their email while unverified' do
+        expect(page).to have_field 'email_address', disabled: true
+      end
     end
 
-    scenario 'User successfully changes their email' do
-      fill_in 'email_address', with: 'anotherTest@example.com'
-      click_button 'Set New Email'
+    context 'with a verified user' do
+      before do
+        user.verify!
+        visit dashboard_profile_path
+      end
 
-      expect(page).to have_content('Successfully changed email')
-      expect(page).not_to have_content('Something went wrong. Please try again.')
-    end
+      scenario 'User successfully changes their email' do
+        fill_in 'email_address', with: 'anotherTest@example.com'
+        click_button 'Set New Email'
 
-    scenario 'User accidentally tries to change to same email' do
-      fill_in 'email_address', with: user.email_address
-      click_button 'Set New Email'
+        expect(page).to have_content('Successfully changed email')
+        expect(page).not_to have_content('Something went wrong. Please try again.')
+      end
 
-      expect(page).not_to have_content('Successfully changed email')
-      expect(page).to have_content('Something went wrong. Please try again.')
-    end
+      scenario 'User accidentally tries to change to same email' do
+        fill_in 'email_address', with: user.email_address
+        click_button 'Set New Email'
 
-    scenario 'User tries to save an invalid email' do
-      allow(user).to receive(:valid?).and_return(false)
+        expect(page).not_to have_content('Successfully changed email')
+        expect(page).to have_content('Something went wrong. Please try again.')
+      end
 
-      fill_in 'email_address', with: 'not-a-valid-email'
-      click_button 'Set New Email'
+      scenario 'User tries to save an invalid email' do
+        allow(user).to receive(:valid?).and_return(false)
 
-      expect(page).not_to have_content('Successfully changed email')
-      expect(page).to have_content('Something went wrong. Please try again.')
+        fill_in 'email_address', with: 'not-a-valid-email'
+        click_button 'Set New Email'
+
+        expect(page).not_to have_content('Successfully changed email')
+        expect(page).to have_content('Something went wrong. Please try again.')
+      end
     end
   end
 
   describe 'Password Management' do
-    let(:new_password) { 'ALegitPassword' }
+    context 'with an unverified user' do
+      before do
+        visit dashboard_profile_path
+      end
 
-    before do
-      visit dashboard_profile_path
+      scenario 'User should not be able to edit password fields' do
+        expect(page).to have_field 'current_password', disabled: true
+        expect(page).to have_field 'new_password', disabled: true
+        expect(page).to have_field 'confirm_password', disabled: true
+      end
     end
 
-    scenario 'User successfully changes their password' do
-      fill_in 'current_password', with: password
-      fill_in 'new_password', with: new_password
-      fill_in 'confirm_password', with: new_password
+    context 'with a verified user' do
+      let(:new_password) { 'ALegitPassword' }
 
-      click_button 'Set New Password'
+      before do
+        user.verify!
+        visit dashboard_profile_path
+      end
 
-      expect(page).to have_content('Successfully changed password')
-      expect(page).not_to have_content('Something went wrong. Please try again.')
-    end
+      scenario 'User successfully changes their password' do
+        fill_in 'current_password', with: password
+        fill_in 'new_password', with: new_password
+        fill_in 'confirm_password', with: new_password
 
-    scenario 'User accidentally puts in same password' do
-      fill_in 'current_password', with: password
-      fill_in 'new_password', with: password
-      fill_in 'confirm_password', with: password
+        click_button 'Set New Password'
 
-      click_button 'Set New Password'
+        expect(page).to have_content('Successfully changed password')
+        expect(page).not_to have_content('Something went wrong. Please try again.')
+      end
 
-      expect(page).not_to have_content('Successfully changed password')
-      expect(page).to have_content('Something went wrong. Please try again.')
-    end
+      scenario 'User accidentally puts in same password' do
+        fill_in 'current_password', with: password
+        fill_in 'new_password', with: password
+        fill_in 'confirm_password', with: password
 
-    scenario 'User puts in wrong password for current password' do
-      fill_in 'current_password', with: 'Not the password'
-      fill_in 'new_password', with: new_password
-      fill_in 'confirm_password', with: new_password
+        click_button 'Set New Password'
 
-      click_button 'Set New Password'
+        expect(page).not_to have_content('Successfully changed password')
+        expect(page).to have_content('Something went wrong. Please try again.')
+      end
 
-      expect(page).not_to have_content('Successfully changed password')
-      expect(page).to have_content('Something went wrong. Please try again.')
-    end
+      scenario 'User puts in wrong password for current password' do
+        fill_in 'current_password', with: 'Not the password'
+        fill_in 'new_password', with: new_password
+        fill_in 'confirm_password', with: new_password
 
-    scenario 'User doesn\'t repeat new password for confirm password' do
-      fill_in 'current_password', with: password
-      fill_in 'new_password', with: new_password
-      fill_in 'confirm_password', with: "#{new_password}!!"
+        click_button 'Set New Password'
 
-      click_button 'Set New Password'
+        expect(page).not_to have_content('Successfully changed password')
+        expect(page).to have_content('Something went wrong. Please try again.')
+      end
 
-      expect(page).not_to have_content('Successfully changed password')
-      expect(page).to have_content('Something went wrong. Please try again.')
+      scenario 'User doesn\'t repeat new password for confirm password' do
+        fill_in 'current_password', with: password
+        fill_in 'new_password', with: new_password
+        fill_in 'confirm_password', with: "#{new_password}!!"
+
+        click_button 'Set New Password'
+
+        expect(page).not_to have_content('Successfully changed password')
+        expect(page).to have_content('Something went wrong. Please try again.')
+      end
     end
   end
 

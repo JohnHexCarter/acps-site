@@ -1,42 +1,72 @@
 <h1>User Profile</h1>
 <hr>
-<div>
-  <h2>Change Email</h2>
-  <%= form_with url: :update_email, method: :put do |form| %>
-    <div>
-      <strong>Current Email:</strong> <%= current_user.email_address %>
-    </div>
-    <div>
-      <%= form.label :email_address, "Email Address" %>
-      <%= form.email_field :email_address %>
-    </div>
-    <div>
-      <%= form.submit "Set New Email" %>
-    </div>
-  <% end %>
+<div class='row'>
+  <div class='mb-3'>
+    <strong>Email:</strong> <%= current_user.email_address %>
+    <% if @unverified %>
+      <span style='color: red'>
+        <%= bootstrap_icon 'x-octagon-fill', widht: 20, height: 20 %>
+        Email is unverified.
+      </span>
+    <% else %>
+      <span style='color: green'>
+        <%= bootstrap_icon 'check-circle-fill', width: 20, height: 20 %>
+      </span>
+    <% end %>
+  </div>
 </div>
 <hr>
-<div>
-  <h2>Change Password</h2>
-  <%= form_with url: :update_password, method: :put do |form| %>
-    <div>
-      <%= form.label :current_password, "Current Password" %>
-      <%= form.password_field :current_password %>
+<% if @unverified %>
+  <div class='row'>
+    <div class='mol-md'>
+      <p>
+        Email and Password cannot be changed until email is verified. Some site features will remain unavailable until your email is verified.
+      </p>
+      <p>
+        <%= link_to send_verification_path do %>
+          Please click here to send a verification email.
+        <% end %>
+      </p>
     </div>
-    <div>
-      <%= form.label :new_password, "New Password" %>
-      <%= form.password_field :new_password %>
-    </div>
-    <div>
-      <%= form.label :confirm_password, "Confirm New Password" %>
-      <%= form.password_field :confirm_password %>
-    </div>
-    <div>
-      <%= form.submit "Set New Password" %>
-    </div>
-  <% end %>
+  </div>
+  <hr>
+<% end %>
+<div class='row'>
+  <div class='col-md'>
+    <h2>Change Email</h2>
+    <%= form_with url: :update_email, method: :put do |form| %>
+      <div class='mb-3'>
+        <%= form.label :email_address, 'Email Address', class: 'form-label' %>
+        <%= form.email_field :email_address, class: 'form-control', disabled: @unverified %>
+      </div>
+      <div class='text-end'>
+        <%= form.submit 'Set New Email', class: 'btn btn-primary', disabled: @unverified %>
+      </div>
+    <% end %>
+  </div>
+  <div class='col-md'>
+    <h2>Change Password</h2>
+    <%= form_with url: :update_password, method: :put do |form| %>
+      <div class='mb-3'>
+        <%= form.label :current_password, 'Current Password', class: 'form-label' %>
+        <%= form.password_field :current_password, class: 'form-control', disabled: @unverified %>
+      </div>
+      <div class='mb-3'>
+        <%= form.label :new_password, 'New Password', class: 'form-label' %>
+        <%= form.password_field :new_password, class: 'form-control', disabled: @unverified %>
+      </div>
+      <div class='mb-3'>
+        <%= form.label :confirm_password, 'Confirm New Password', class: 'form-label' %>
+        <%= form.password_field :confirm_password, class: 'form-control', disabled: @unverified %>
+      </div>
+      <div class='text-end'>
+        <%= form.submit 'Set New Password', class: 'btn btn-primary', disabled: @unverified %>
+      </div>
+    <% end %>
+  </div>
 </div>
 <hr>
+<h2>Danger Territory</h2>
 <div>
   <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#destroyModal">
     Delete Account

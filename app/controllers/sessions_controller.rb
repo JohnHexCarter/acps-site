@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
       return
     end
 
-    user = User.new(email_address: params[:email_address], password: params[:password], aasm_state: 'unconfirmed')
+    user = User.new(email_address: params[:email_address], password: params[:password], aasm_state: 'unverified')
 
     unless user.valid?
       redirect_to sign_up_path(email_address: params[:email_address]), alert: 'Something went wrong. Please try again with another email.'
