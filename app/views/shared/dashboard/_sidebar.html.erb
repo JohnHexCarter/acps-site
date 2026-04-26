@@ -22,6 +22,14 @@
           <% end %>
         </li>
       <% end %>
+      <li class='nav-item'>
+        <%= link_to session_path, method: :delete, data: { turbo_method: :delete }, class: 'nav-link align-middle px-0' do %>
+          <%= bootstrap_icon 'box-arrow-left', width: 20, height: 20 %>
+          <span class='ms-1 d-none d-sm-inline'>
+            Log Out
+          </span>
+        <% end %>
+      </li>
     </ul>
   </div>
 </div>

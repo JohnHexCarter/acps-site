@@ -27,6 +27,18 @@ class MailingListEntity < ApplicationRecord
     end
   end
 
+  def self.check_to_migrate(user:)
+    mle = MailingListEntity.find_by(email: user.email_address)
+
+    return if mle.blank?
+
+    user.confirm! if mle.confirmed?
+
+    mle.archive!
+
+    user.update!(mailing_list: true)
+  end
+
   def self.try_to_sign_up(email:)
     mle = MailingListEntity.new(email: email)
 

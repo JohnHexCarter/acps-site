@@ -4,6 +4,7 @@
 # email_address    string, null: false, unique: true
 # password_hash    password
 # aasm_state       string, null: false, default: 'unconfirmed'
+# mailing_list     boolean, null: false, default: false
 
 class User < ApplicationRecord
   include AASM
