@@ -16,9 +16,10 @@ module Dashboard
     end
 
     def populate_dash_objects
+      mailer = DashObject.find_by(namespace: 'mailer')
       pages = DashObject.find_by(namespace: 'pages')
       profile = DashObject.find_by(namespace: 'profile')
-      @dash_objects = [ pages, profile ]
+      @dash_objects = [ mailer, pages, profile ]
     end
   end
 end

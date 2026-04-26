@@ -15,6 +15,12 @@ dash_objects = [
     icon_str: 'bookmark-fill'
   },
   {
+    name: 'Mailer',
+    namespace: 'mailer',
+    description: 'Managing one-off emails and mailing list',
+    icon_str: 'envelope-open-heart'
+  },
+  {
     name: 'Profile',
     namespace: 'profile',
     description: 'Settings for profile management',
