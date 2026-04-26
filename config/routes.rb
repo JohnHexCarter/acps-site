@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post   'session/create_account'     => 'sessions#create_user',                as: :create_user
 
   get    'dashboard'                  => 'dashboard/base#index',                as: :dashboard_index
+  get    'dashboard/mailer'           => 'dashboard/mailer#index',              as: :dashbord_mailer
   get    'dashboard/profile'          => 'dashboard/profile#index',             as: :dashboard_profile
   delete 'dashboard/profile'          => 'dashboard/profile#destroy'
   put    'dashboard/profile/password' => 'dashboard/profile#update_password',   as: :update_password
