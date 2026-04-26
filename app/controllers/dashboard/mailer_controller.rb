@@ -3,7 +3,6 @@
 module Dashboard
   class MailerController < BaseController
     def index
-
     end
   end
 end
