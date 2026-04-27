@@ -3,6 +3,7 @@
 module Dashboard
   class MailerController < BaseController
     def index
+      @confirmed = MailingListEntity.confirmed
     end
   end
 end
