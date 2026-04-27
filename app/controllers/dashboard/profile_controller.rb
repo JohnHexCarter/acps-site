@@ -19,21 +19,21 @@ module Dashboard
     end
 
     def update_password
-      potential_user =
-        User.authenticate_by(
-          {
-            email_address: current_user.email_address,
-            password: params[:current_password]
-          }
-        )
-      if potential_user == current_user &&
-         params[:new_password] == params[:confirm_password] &&
-         params[:current_password] != params[:new_password]
-        current_user.update_password(params[:new_password])
+      if params[:new_password] != params[:confirm_password]
+        redirect_to dashboard_profile_path, alert: 'New Password and Confirm Password do not match'
+        return
+      end
 
+      response =
+        current_user.attempt_to_update_password(
+          old_password: params[:current_password],
+          new_password: params[:new_password]
+        )
+
+      if response.blank?
         flash[:notice] = 'Successfully changed password.'
       else
-        flash[:alert] = 'Something went wrong. Please try again.'
+        flash[:alert] = response
       end
 
       redirect_to dashboard_profile_path

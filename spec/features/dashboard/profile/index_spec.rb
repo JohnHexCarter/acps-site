@@ -82,7 +82,7 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
     end
 
     context 'with a verified user' do
-      let(:new_password) { 'ALegitPassword' }
+      let(:new_password) { 'P@ssw1rd!!' }
 
       before do
         user.verify!
@@ -108,7 +108,7 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
         click_button 'Set New Password'
 
         expect(page).not_to have_content('Successfully changed password')
-        expect(page).to have_content('Something went wrong. Please try again.')
+        expect(page).to have_content('New password must be different from current password')
       end
 
       scenario 'User puts in wrong password for current password' do
@@ -119,7 +119,7 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
         click_button 'Set New Password'
 
         expect(page).not_to have_content('Successfully changed password')
-        expect(page).to have_content('Something went wrong. Please try again.')
+        expect(page).to have_content('Current password was incorrect')
       end
 
       scenario 'User doesn\'t repeat new password for confirm password' do
@@ -130,7 +130,18 @@ RSpec.feature 'Dashboard Profile Index', type: :feature do
         click_button 'Set New Password'
 
         expect(page).not_to have_content('Successfully changed password')
-        expect(page).to have_content('Something went wrong. Please try again.')
+        expect(page).to have_content('New Password and Confirm Password do not match')
+      end
+
+      scenario 'User chooses an invalid password for new password' do
+        fill_in 'current_password', with: password
+        fill_in 'new_password', with: 'invalid'
+        fill_in 'confirm_password', with: 'invalid'
+
+        click_button 'Set New Password'
+
+        expect(page).not_to have_content('Successfully changed password')
+        expect(page).to have_content('Password is invalid')
       end
     end
   end
