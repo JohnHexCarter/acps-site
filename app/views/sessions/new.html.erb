@@ -17,9 +17,11 @@
     <% end %>
   </div>
   <div class='col-md text-center'>
-    <div class='row' style='padding-top: 40px'>
-      <%= link_to 'Need to create an account instead?', sign_up_path %>
-    </div>
+    <% unless @construction %>
+      <div class='row' style='padding-top: 40px'>
+        <%= link_to 'Need to create an account instead?', sign_up_path %>
+      </div>
+    <% end %>
     <div class='row' style='padding-top: 40px'>
       <%= link_to 'Forgot password?', new_password_path %>
     </div>
