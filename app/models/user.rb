@@ -9,6 +9,14 @@
 class User < ApplicationRecord
   include AASM
 
+  PASSWORD_REQUIREMENTS = /\A
+    (?=.{8,})   # At least 8 characters long
+    (?=.*\d)   # Contains at least one number
+    (?=.*[a-z]) # Contains at least one lowercase letter
+    (?=.*[A-Z]) # Contains at least one uppercase letter
+    (?=.*[[:^alnum:]]) # Contains at least one symbol
+  /x.freeze
+
   has_secure_password
   has_many :sessions, dependent: :destroy
 
@@ -77,12 +85,24 @@ class User < ApplicationRecord
     true
   end
 
-  def update_password(new_password)
+  def attempt_to_update_password(old_password:, new_password:)
+    potential_user = User.authenticate_by({ email_address: email_address, password: old_password })
+
+    if potential_user.blank? || (potential_user != self)
+      return 'Current password was incorrect'
+    elsif old_password == new_password
+      return 'New password must be different from current password'
+    elsif !(new_password =~ PASSWORD_REQUIREMENTS)
+      return 'Password is invalid'
+    end
+
     password = new_password
 
     self.save!
 
     UserMailer.with(user: self).password_change.deliver_now
+
+    nil
   end
 
   def complete_destruction
