@@ -1,5 +1,28 @@
 <h1>Mailer Manager</h1>
 <hr>
 <div>
-  Mail stuff, baby
+  <table class='table'>
+    <thead>
+      <tr>
+        <th scope='col'>
+          Email
+        </th>
+        <th scope='col'>
+          Joined
+        </th>
+        <th scope='col'>
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @confirmed.each do |mle| %>
+        <tr>
+          <td><%= mle.email %></td>
+          <td><%= mle.created_at.strftime('%F') %></td>
+          <td><%= mle.aasm_state %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

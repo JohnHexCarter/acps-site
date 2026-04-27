@@ -6,4 +6,11 @@ module LoginHelpers
 
     click_button 'Log in'
   end
+
+  def login
+    password = 'P@ssw0rd!!'
+    user = create(:user, email_address: 'spec-login@helper.com', password: password)
+
+    login_with(user.email_address, password)
+  end
 end
