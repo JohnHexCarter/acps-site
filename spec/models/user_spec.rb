@@ -3,6 +3,19 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:subject) { build(:user) }
 
+  describe 'associations' do
+    it 'has a relationship to mailers' do
+      mailer = create(:mailer)
+
+      user = create(:active_user, mailing_list: true)
+
+      Recipient.create(mailer: mailer, recipiable: user)
+
+      expect(user.mailers.count).to eq(1)
+      expect(user.mailers.first).to eq(mailer)
+    end
+  end
+
   describe 'validations' do
     it 'requires an email_address to be valid' do
       subject.email_address = nil

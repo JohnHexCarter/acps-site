@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "bootstrap-icons": "^1.13.1"
+    "@rails/actiontext": "^8.1.300",
+    "bootstrap-icons": "^1.13.1",
+    "trix": "^2.1.18"
   }
 }

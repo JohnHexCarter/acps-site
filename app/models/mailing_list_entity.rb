@@ -7,6 +7,9 @@
 class MailingListEntity < ApplicationRecord
   include AASM
 
+  has_many :recipients, as: :recipiable
+  has_many :mailers, through: :recipients
+
   normalizes :email, with: ->(e) { e.strip.downcase }
 
   validates :email, presence: true, uniqueness: true, 'valid_email_2/email': true

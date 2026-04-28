@@ -3,3 +3,6 @@ import "@hotwired/turbo-rails"
 import '@popperjs/core'
 import * as bootstrap from 'bootstrap';
 import "controllers"
+
+import "trix"
+import "@rails/actiontext"

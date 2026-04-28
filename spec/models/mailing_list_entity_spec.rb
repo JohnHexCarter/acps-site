@@ -8,6 +8,19 @@ RSpec.describe MailingListEntity, type: :model do
     allow_any_instance_of(MailingListEntity).to receive(:send_confirmation_email).and_return(true)
   end
 
+  describe 'associations' do
+    it 'has a relationship to mailers' do
+      mailer = create(:mailer)
+
+      mle = create(:confirmed_mailing_list_entity)
+
+      Recipient.create(mailer: mailer, recipiable: mle)
+
+      expect(mle.mailers.count).to eq(1)
+      expect(mle.mailers.first).to eq(mailer)
+    end
+  end
+
   describe 'validations' do
     it 'must have an email' do
       subject.email = nil
