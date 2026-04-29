@@ -3,7 +3,9 @@
 module Dashboard
   class MailerController < BaseController
     def index
-      @confirmed = MailingListEntity.confirmed
+      @confirmed_mle = MailingListEntity.confirmed
+      @mailer_drafts = Mailer.draft
+      @mailer_published = Mailer.published
     end
   end
 end
