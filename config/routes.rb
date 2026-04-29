@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get    'dashboard'                  => 'dashboard/base#index',                as: :dashboard_index
   get    'dashboard/mailer'           => 'dashboard/mailer#index',              as: :dashboard_mailer
   get    'dashboard/mailer/new'       => 'dashboard/mailer#new',                as: :dashboard_new_mailer
-  post   'dashboard/mailer/create'    => 'dashboard/mailer#create',             as: :dashboard_creater_mailer
+  post   'dashboard/mailer/create'    => 'dashboard/mailer#create',             as: :dashboard_create_mailer
   get    'dashboard/profile'          => 'dashboard/profile#index',             as: :dashboard_profile
   delete 'dashboard/profile'          => 'dashboard/profile#destroy'
   put    'dashboard/profile/password' => 'dashboard/profile#update_password',   as: :update_password
