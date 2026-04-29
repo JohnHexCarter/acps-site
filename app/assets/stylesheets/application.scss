@@ -1,1 +1,11 @@
 @import 'bootstrap';
+
+.btn-primary {
+  background-color: #0c3f3c;
+  border: #0c3f3c;
+}
+
+.btn-primary:hover {
+  background-color: #39b796;
+  color: black;
+}
