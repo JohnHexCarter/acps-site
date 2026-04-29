@@ -27,6 +27,8 @@ class User < ApplicationRecord
   validates :email_address, presence: true, uniqueness: true, 'valid_email_2/email': true
   validates :aasm_state, presence: true
 
+  scope :ml_subscribed, -> { where(aasm_status: 'verified', mailing_list: true) }
+
   aasm do
     state :unverified, initial: true
     state :active, :suspended, :banned
