@@ -1,0 +1,23 @@
+<h1>Edit Mailer</h1>
+<hr>
+<div class='container'>
+  <%= form_with url: dashboard_update_mailer_path, model: @mailer, method: :put do |form| %>
+    <div class='row'>
+      <div class='col-md field'>
+        <%= form.label :subject, class: 'form-label' %>
+        <%= form.text_field :subject, class: 'form-control' %>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md field'>
+        <%= form.label :body, class: 'form-label' %>
+        <%= form.rich_textarea :body %>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='text-end'>
+        <%= form.submit 'Update Mailer', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>
