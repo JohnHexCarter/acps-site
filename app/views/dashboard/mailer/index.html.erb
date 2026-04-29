@@ -38,9 +38,9 @@
         <tbody>
           <% @mailer_drafts.each do |draft| %>
             <tr>
-              <td><%= link_to draft.subject, '#' %></td>
+              <td><%= link_to draft.subject, dashboard_view_mailer_path(id: draft.id) %></td>
               <td><%= draft.updated_at.strftime('%F') %></td>
-              <td><%= link_to 'Edit', '#' %>
+              <td><%= link_to 'Edit', dashboard_edit_mailer_path(id: draft.id) %>
             </tr>
           <% end %>
         </tbody>
@@ -67,7 +67,7 @@
         <tbody>
           <% @mailer_published.each do |pub| %>
             <tr>
-              <td><%= link_to pub.subject, '#' %></td>
+              <td><%= link_to pub.subject, dashboard_view_mailer_path(id: pub.id) %></td>
               <td><%= pub.published_at.strftime('%F') %></td>
               <td><%= link_to 'Recipients', '#' %>
             </tr>

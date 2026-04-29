@@ -1,0 +1,32 @@
+<h1><%= @mailer.subject %></h1>
+<hr>
+<div class='row'>
+  <div class='col md-3'>
+    <strong>Created At:</strong> <%= @mailer.created_at.strftime('%F') %>
+  </div>
+  <div class='col md-3'>
+    <strong>Last Updated:</strong> <%= @mailer.updated_at.strftime('%F') %>
+  </div>
+  <div class='col md-3'>
+    <% if @mailer.published_at.present? %>
+      <strong>Published:</strong> <%= @mailer.published_at.strftime('%F') %>
+    <% else %>
+      <%= link_to 'Publish', '#' %>
+    <% end %>
+  </div>
+<div>
+<hr>
+<div>
+  <%= @mailer.body %>
+</div>
+<hr>
+<% unless @mailer.published_at.present? %>
+  <div class='row'>
+    <div class='col md-3'>
+      <%= link_to 'Publish', '#' %>
+    </div>
+    <div class='col md-3'>
+      <%= link_to 'Edit', dashboard_edit_mailer_path(id: @mailer.id) %>
+    </div>
+  </div>
+<% end %>
