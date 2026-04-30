@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class MailingListMailer < ApplicationMailer
+  layout 'non-mailer'
+
   def confirmation
     @mailing_list_entity = params[:mailing_list_entity]
     @confirm_url = "#{site_url}/confirm/#{@mailing_list_entity.id}"

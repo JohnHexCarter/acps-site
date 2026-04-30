@@ -39,7 +39,7 @@
       .email-container a:hover {
         color: #343a38;
       }
-      .email-footer {
+      #email-footer {
         padding: 15px;
         background-color: black;
         font-size: 15px;
@@ -64,16 +64,13 @@
     <div id='email-header'>
       <%= image_tag 'primary-transparent.png', width: '400px', alt: 'ACPS logo' %>
     </div>
-    <div id='email-body'>
+    <div id='email-body' class='container-box'>
       <div class='email-container body-container'>
         <%= yield %>
       </div>
     </div>
-    <div id='email-footer'>
+    <div id='email-footer' class='container-box'>
       <div class='email-container'>
-        You are receiving this email because you subscribed to the Appalachia Cinema
-        Preservation Society mailing list. If this was in error or you have since
-        changed your mind, <%= link_to 'please click here to unsubscribe', '#' %>.
       </div>
     </div>
   </body>
