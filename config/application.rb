@@ -30,6 +30,9 @@ module AcpsSite
 
     config.action_mailer.delivery_method = :brevo
     config.action_mailer.brevo_settings = { api_key: ENV['BREVO_API_KEY'] }
+    config.action_mailer.preview_paths << "#{Rails.root}/lib/mailer_previews"
+
+    config.asset_host = 'https://www.acpsociety.org'
 
     # Configuration for the application, engines, and railties goes here.
     #
